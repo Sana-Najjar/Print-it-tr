@@ -25,31 +25,29 @@ let carrousel = document.querySelector ("#banner .banner-img");
 let text = document.querySelector ("#banner p");
 
 // récuperer les points
-let dots = document.getElementsByClassName ("dot");
+let dots = document.querySelectorAll(".dot");
 
 // declaration du compteur
 let i=0; 
+let curlenght = slides.length -1;
 
 // fléche à droite
 btn_right.addEventListener("click",function() {
-	if(i<slides.length-1) { //avant l'arrivé à la derniere image
-		i++
-		updateCarrousel(i) //appel à la fonction qui change l'image
-		updateDots()      // appel à la fonction qui modifie les points selectionnés
-	}else if(i==slides.length -1 ){ //lorsqu'on arrive à la dernière image
-		i=0;
-		updateCarrousel(i);
-		updateDots()
-	}
+	
+	i = i === curlenght ? 0 : (i+1) //condition
+	updateCarrousel(i) //appel à la fonction qui change l'image
+	updateDots()      // appel à la fonction qui modifie les points selectionnés
+		
 })
+
 // fléche à gauche
 btn_left.addEventListener("click",function() {
 	if (i==0) { // lorqu'on est sur la première image
-		updateCarrousel(slides.length-1) // il affiche la dernière image
+		updateCarrousel(curlenght) // il affiche la dernière image
 		dots[0].classList.remove("dot_selected");
-        dots[slides.length-1].classList.add("dot_selected");
-		i=slides.length-1;
-	}else if (i<=slides.length-1){
+        dots[curlenght].classList.add("dot_selected");
+		i=curlenght;
+	}else if (i <= curlenght){
 		updateCarrousel(i-1)
 		dots[i].classList.remove("dot_selected");
 		dots[i - 1].classList.add("dot_selected");
